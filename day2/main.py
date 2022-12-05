@@ -5,10 +5,9 @@ scoreAwardsPart1 = {"A": {"X": 4, "Y": 8, "Z": 3},
                     "B": {"X": 1, "Y": 5, "Z": 9},
                     "C": {"X": 7, "Y": 2, "Z": 6}}
 
-# Base score rewards: x = 1pt, y = 2pt, z = 3pt
+# Base score rewards: Rock = 1pt, Paper = 2pt, Scissors = 3pt
 # Result score rewards: Lose = 0pt, Draw = 3pt, Win = 6pt
-# Result points only awarded with the following win conditions:
-#   X = Lose, Y = Draw = Z = Win
+# For this part, X = Lose, Y = Draw, and Z = Win
 
 scoreAwardsPart2 = {"A": {"X": 3, "Y": 4, "Z": 8},
                     "B": {"X": 1, "Y": 5, "Z": 9},
