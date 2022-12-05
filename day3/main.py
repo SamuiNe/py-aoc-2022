@@ -21,7 +21,8 @@ part1LineComplete: bool = 0
 
 while currentFileReadline != '':
     # -1 offset since we do not count the \n.
-    compartmentLength = len(currentFileReadline) - 1
+    compartmentLength = len(currentFileReadline)
+    compartmentLengthLineBreakExcluded = compartmentLength - 1
     compartmentHalfPoint = compartmentLength >> 1
 
     while compartmentPart1Index < compartmentHalfPoint:
@@ -33,7 +34,7 @@ while currentFileReadline != '':
 
         compartmentPart1Index += 1
 
-    while compartmentPart1Index < compartmentLength - 1:
+    while compartmentPart1Index < compartmentLength:
         if currentFileReadline[compartmentPart1Index] not in currentPart2LineSet[compartmentPart2Index]:
             currentPart2LineSet[compartmentPart2Index].add(currentFileReadline[compartmentPart1Index])
 
@@ -46,7 +47,7 @@ while currentFileReadline != '':
 
         compartmentPart1Index += 1
 
-    while compartmentPart1Index < compartmentLength:
+    while compartmentPart1Index < compartmentLengthLineBreakExcluded:
         if currentFileReadline[compartmentPart1Index] not in currentPart2LineSet[compartmentPart2Index]:
             currentPart2LineSet[compartmentPart2Index].add(currentFileReadline[compartmentPart1Index])
 
