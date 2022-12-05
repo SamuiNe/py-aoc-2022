@@ -30,3 +30,4 @@ while currentFileReadline != '':
 
 print("AoC 2022 Day 2 Part 1 Solution is", totalScorePart1)
 print("AoC 2022 Day 2 Part 2 Solution is", totalScorePart2)
+file.close()

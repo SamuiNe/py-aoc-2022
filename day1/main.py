@@ -20,4 +20,5 @@ print("AoC 2022 Day 1 Part 1 Solution is", elfCaloriesList[0])
 print(elfCaloriesList[:1])
 
 print("AoC 2022 Day 1 Part 2 Solution is", sum(elfCaloriesList[:3]))
-print(str(elfCaloriesList[:3]))
+print(elfCaloriesList[:3])
+file.close()
