@@ -1,3 +1,24 @@
+def calculate_priority(priority_letter):
+    # From A being ASCII 65, (27 - 65 = -38)
+    capital_letter_ascii_offset: int = -38
+
+    # From a being ASCII 97, (1 - 97 = -96)
+    lowercase_letter_ascii_offset: int = -96
+
+    if priority_letter.isupper():
+        return ord(priority_letter) + capital_letter_ascii_offset
+    else:
+        return ord(priority_letter) + lowercase_letter_ascii_offset
+
+
+def clear_part2_sets(current_line_set):
+    current_line_set[0].clear()
+    current_line_set[1].clear()
+    current_line_set[2].clear()
+
+    return
+
+
 file = open("input/adventOfCodeDay3Input.txt", "r")
 currentFileReadline = file.readline()
 
@@ -22,7 +43,7 @@ part1LineComplete: bool = 0
 while currentFileReadline != '':
     # -1 offset since we do not count the \n.
     compartmentLength = len(currentFileReadline)
-    compartmentLengthLineBreakExcluded = compartmentLength - 1
+    compartmentLengthLineBreakExclusive = compartmentLength - 1
     compartmentHalfPoint = compartmentLength >> 1
 
     while compartmentPart1Index < compartmentHalfPoint:
@@ -34,20 +55,17 @@ while currentFileReadline != '':
 
         compartmentPart1Index += 1
 
-    while compartmentPart1Index < compartmentLength:
+    while compartmentPart1Index < compartmentLengthLineBreakExclusive:
         if currentFileReadline[compartmentPart1Index] not in currentPart2LineSet[compartmentPart2Index]:
             currentPart2LineSet[compartmentPart2Index].add(currentFileReadline[compartmentPart1Index])
 
         if currentFileReadline[compartmentPart1Index] in currentPart1LineSet:
-            if currentFileReadline[compartmentPart1Index].isupper():
-                totalPart1Priority += ord(currentFileReadline[compartmentPart1Index]) + CAPITAL_LETTER_ASCII_OFFSET
-            else:
-                totalPart1Priority += ord(currentFileReadline[compartmentPart1Index]) + LOWERCASE_LETTER_ASCII_OFFSET
+            totalPart1Priority += calculate_priority(currentFileReadline[compartmentPart1Index])
             break
 
         compartmentPart1Index += 1
 
-    while compartmentPart1Index < compartmentLengthLineBreakExcluded:
+    while compartmentPart1Index < compartmentLengthLineBreakExclusive:
         if currentFileReadline[compartmentPart1Index] not in currentPart2LineSet[compartmentPart2Index]:
             currentPart2LineSet[compartmentPart2Index].add(currentFileReadline[compartmentPart1Index])
 
@@ -56,14 +74,8 @@ while currentFileReadline != '':
     if compartmentPart2Index == 2:
         commonLetter = (set(currentPart2LineSet[0]).intersection(currentPart2LineSet[1])\
                         .intersection(currentPart2LineSet[2])).pop()
-        if commonLetter.isupper():
-            totalPart2Priority += ord(commonLetter) + CAPITAL_LETTER_ASCII_OFFSET
-        else:
-            totalPart2Priority += ord(commonLetter) + LOWERCASE_LETTER_ASCII_OFFSET
-
-        currentPart2LineSet[0].clear()
-        currentPart2LineSet[1].clear()
-        currentPart2LineSet[2].clear()
+        totalPart2Priority += calculate_priority(commonLetter)
+        clear_part2_sets(currentPart2LineSet)
 
     compartmentPart1Index = 0
     compartmentLineIndex += 1
@@ -72,5 +84,5 @@ while currentFileReadline != '':
     currentFileReadline = file.readline()
 
 print("AoC 2022 Day 3 Part 1 Solution is", totalPart1Priority)
-print("AOC 2022 Day 3 Part 2 Solution is", totalPart2Priority)
+print("AoC 2022 Day 3 Part 2 Solution is", totalPart2Priority)
 file.close()
