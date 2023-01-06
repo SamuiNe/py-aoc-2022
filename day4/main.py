@@ -1,23 +1,22 @@
 import pairsCalculator
+import re
 
 file = open("input/adventOfCodeDay4Input.txt", "r")
 currentFileReadline = file.readline()
 
-fileStage1Split: list[str] = currentFileReadline.split(",")
-fileStage2Split: list[list[int]] = [[], []]
+lineSplit: list[int] = list(map(int, re.split(r'[-,]', currentFileReadline)))
 
 fullyContainedPairsCount: int = 0
 containsPairsCount: int = 0
 
 while currentFileReadline != '':
-    fileStage1Split: list[str] = currentFileReadline.split(",")
-    fileStage2Split[0] = list(map(int, fileStage1Split[0].split("-")))
-    fileStage2Split[1] = list(map(int, fileStage1Split[1].split("-")))
+    lineSplit = list(map(int, re.split(r'[-,]', currentFileReadline)))
 
-    containsPairsCount += pairsCalculator.contains_pairs(fileStage2Split)
-    fullyContainedPairsCount += pairsCalculator.fully_contained_pairs(fileStage2Split)
+    containsPairsCount += pairsCalculator.contains_pairs(lineSplit)
+    fullyContainedPairsCount += pairsCalculator.fully_contained_pairs(lineSplit)
 
     currentFileReadline = file.readline()
 
 print("AoC 2022 Day 4 Part 1 Solution is", fullyContainedPairsCount)
 print("AoC 2022 Day 4 Part 2 Solution is", containsPairsCount)
+file.close()
